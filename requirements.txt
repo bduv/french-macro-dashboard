@@ -1,0 +1,22 @@
+# ── Interface & Visualisation ─────────────────────────────────
+streamlit==1.38.0
+plotly==5.22.0
+
+# ── Données & APIs ────────────────────────────────────────────
+pandas==2.2.3
+numpy==2.1.3
+fredapi==0.5.2
+wbgapi==1.0.12
+requests==2.32.3
+
+# ── Économétrie & Modélisation ────────────────────────────────
+statsmodels==0.14.4
+scikit-learn==1.5.2
+scipy==1.14.1
+
+# ── Prévisions ────────────────────────────────────────────────
+prophet==1.1.6
+
+# ── Utilitaires ───────────────────────────────────────────────
+python-dotenv==1.0.1
+openpyxl==3.1.3

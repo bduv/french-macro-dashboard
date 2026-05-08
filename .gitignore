@@ -1,0 +1,21 @@
+# Sécurité : ne jamais publier les clés API
+.env
+
+# Environnement virtuel Python
+venv/
+
+# Données brutes (trop lourdes pour GitHub)
+data/raw/
+data/processed/
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+*.pyo
+
+# Fichiers système Windows
+Thumbs.db
+desktop.ini
+
+# VS Code
+.vscode/

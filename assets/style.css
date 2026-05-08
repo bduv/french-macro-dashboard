@@ -1,0 +1,75 @@
+/* ============================================================
+   assets/style.css
+   Style personnalisé French Macro Dashboard
+   Inspiré du design sobre et professionnel de la Banque de France
+   ============================================================ */
+
+/* Police principale */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Variables de couleurs */
+:root {
+    --blue-france: #002395;
+    --blue-light:  #4e7abf;
+    --gray-dark:   #1a1a2e;
+    --gray-medium: #555555;
+    --gray-light:  #f8f9fa;
+    --white:       #ffffff;
+    --positive:    #2ecc71;
+    --negative:    #e74c3c;
+    --border:      #e0e0e0;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #001a6e 0%, #002395 100%);
+}
+
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Métriques KPI */
+[data-testid="stMetric"] {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+[data-testid="stMetricLabel"] {
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    color: var(--gray-medium) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: var(--blue-france) !important;
+}
+
+/* Titres de sections */
+h1 { color: var(--blue-france) !important; }
+h2 { color: var(--gray-dark)   !important; border-bottom: 2px solid var(--blue-france); padding-bottom: 6px; }
+h3 { color: var(--gray-dark)   !important; }
+
+/* Boîtes d'insights */
+.insight-box {
+    background: #f0f4ff;
+    border-left: 4px solid var(--blue-france);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--gray-dark);
+}
+
+/* Tabs */
+[data-testid="stTab"] {
+    font-weight: 500;
+}
