@@ -133,7 +133,7 @@ if variable_sarima in df_ana.columns:
         ))
 
         # ── 2. Historique ─────────────────────────────────────────
-        hist = result_sarima["historique"].last("40QE")
+        hist = result_sarima["historique"].iloc[-40:]
         fig_sarima.add_trace(go.Scatter(
             x=hist.index, y=hist.values,
             name="Historique",
@@ -141,7 +141,7 @@ if variable_sarima in df_ana.columns:
         ))
 
         # ── 3. Valeurs ajustées ───────────────────────────────────
-        fitted_plot = result_sarima["fitted_values"].last("40QE")
+        fitted_plot = result_sarima["fitted_values"].iloc[-40:]
         fig_sarima.add_trace(go.Scatter(
             x=fitted_plot.index, y=fitted_plot.values,
             name="Valeurs ajustées",
@@ -308,7 +308,7 @@ if len(var_cols) >= 2:
 
         for i, col_var in enumerate(var_cols):
             with cols_plot[i]:
-                hist_var = result_var["historique"][col_var].last("32QE")
+                hist_var = result_var["historique"][col_var].iloc[-32:]
                 prev_var = result_var["previsions"][col_var]
                 ic_l_var = result_var["ic_lower"][col_var]
                 ic_u_var = result_var["ic_upper"][col_var]

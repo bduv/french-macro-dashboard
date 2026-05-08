@@ -455,7 +455,7 @@ if "erreur" not in baseline_sarima:
     )
 
     # Graphique comparatif
-    hist_sc = baseline_sarima["historique"].last("24QE")
+    hist_sc = baseline_sarima["historique"].iloc[-24:]
 
     fig_sc = go.Figure()
 
