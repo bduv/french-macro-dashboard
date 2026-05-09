@@ -61,8 +61,22 @@ st.subheader("🇫🇷 Indicateurs clés — France (dernière observation)")
 col1, col2, col3, col4, col5 = st.columns(5)
 
 # PIB — croissance annuelle
+# ── KPI PIB : glissement annuel du dernier trimestre disponible ──
+# Note : peut légèrement différer du chiffre annuel INSEE (+1.2% pour 2024)
+# car on mesure T4-2024/T4-2023 et non la moyenne annuelle 2024/2023
 gdp_growth_fr = gdp.get("France_growth_y", pd.Series(dtype=float))
+
 val_gdp, delta_gdp, date_gdp = get_latest_value(gdp_growth_fr)
+
+# Affichage avec note méthodologique
+with col1:
+    st.metric(
+        label="Croissance PIB (g.a. trimestrielle)",
+        value=f"{val_gdp:.1f} %" if val_gdp else "N/A",
+        delta=f"{delta_gdp:.1f} pp" if delta_gdp else None,
+        help="Variation du PIB réel T vs T-4 trimestres. "
+             "Différent de la croissance annuelle moyenne (+1,2% en 2024 selon INSEE)."
+    )
 
 # Chômage
 val_un, delta_un, date_un = get_latest_value(unemp["France"])
@@ -79,21 +93,12 @@ if "Spread OAT-Bund (pb)" in rates.columns:
 else:
     val_spread, delta_spread, date_spread = None, None, None
 
-with col1:
-    st.metric(
-        label="Croissance PIB (g.a.)",
-        value=f"{val_gdp:.1f} %" if val_gdp else "N/A",
-        delta=f"{delta_gdp:.1f} pp" if delta_gdp else None,
-        help="Variation du PIB réel T vs T-4 trimestres. "
-             "Différent de la croissance annuelle moyenne (+1,2% en 2024 selon INSEE)."
-    )
-
 with col2:
     st.metric(
         label="Taux de chômage",
         value=f"{val_un:.1f} %" if val_un else "N/A",
         delta=f"{delta_un:.1f} pp" if delta_un else None,
-        delta_color="inverse",
+        delta_color="inverse",  # baisse du chômage = positif
     )
 
 with col3:
@@ -101,6 +106,7 @@ with col3:
         label="Inflation (IPC g.a.)",
         value=f"{val_inf:.1f} %" if val_inf else "N/A",
         delta=f"{delta_inf:.1f} pp" if delta_inf else None,
+        delta_color="off",  # neutre — désinflation = ambivalent
     )
 
 with col4:
@@ -108,6 +114,7 @@ with col4:
         label="OAT 10 ans",
         value=f"{val_oat:.2f} %" if val_oat else "N/A",
         delta=f"{delta_oat:.2f} pp" if delta_oat else None,
+        delta_color="inverse",
     )
 
 with col5:
@@ -115,6 +122,7 @@ with col5:
         label="Spread OAT-Bund",
         value=f"{val_spread:.0f} pb" if val_spread else "N/A",
         delta=f"{delta_spread:.0f} pb" if delta_spread else None,
+        delta_color="inverse",
     )
 
 st.markdown("---")
