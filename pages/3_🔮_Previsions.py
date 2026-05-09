@@ -195,7 +195,7 @@ if variable_sarima in df_ana.columns:
         # ── Tableau des prévisions ────────────────────────────
         with st.expander("📋 Tableau des prévisions détaillées"):
             df_prev_table = pd.DataFrame({
-                "Trimestre":          prev.index.strftime("%Y-T%q"),
+                "Trimestre":          prev.index.map(lambda d: f"{d.year}-T{(d.month-1)//3 + 1}"),
                 "Prévision":          prev.values.round(3),
                 f"IC {int(conf_level*100)}% — Borne inf.": ic_low.values.round(3),
                 f"IC {int(conf_level*100)}% — Borne sup.": ic_up.values.round(3),
@@ -368,7 +368,7 @@ if len(var_cols) >= 2:
         # ── Tableau des prévisions VAR ────────────────────────
         with st.expander("📋 Tableau complet des prévisions VAR"):
             df_var_table = result_var["previsions"].round(3).copy()
-            df_var_table.index = df_var_table.index.strftime("%Y-T%q")
+            df_var_table.index = df_var_table.index.map(lambda d: f"{d.year}-T{(d.month-1)//3 + 1}")
             df_var_table.columns = [labels_var.get(c, c) for c in df_var_table.columns]
             st.dataframe(df_var_table, use_container_width=True)
 

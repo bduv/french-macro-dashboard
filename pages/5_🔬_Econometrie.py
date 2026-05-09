@@ -241,7 +241,7 @@ if len(cols_i1) >= 2:
 
         with tab_prev:
             df_vecm_prev = result_vecm["previsions"].round(3)
-            df_vecm_prev.index = df_vecm_prev.index.strftime("%Y-T%q")
+            df_vecm_prev.index = df_vecm_prev.index.map(lambda d: f"{d.year}-T{(d.month-1)//3 + 1}")
             df_vecm_prev.columns = [labels_vars.get(c, c) for c in df_vecm_prev.columns]
             st.dataframe(df_vecm_prev, use_container_width=True)
 
@@ -512,7 +512,7 @@ if "erreur" not in baseline_sarima:
     # Tableau d'impact
     impact = prev_scenario[scenario_var] - prev_baseline[scenario_var]
     df_impact = pd.DataFrame({
-        "Trimestre":   prev_baseline.index.strftime("%Y-T%q"),
+        "Trimestre":   prev_baseline.index.map(lambda d: f"{d.year}-T{(d.month-1)//3 + 1}"),
         "Baseline":    prev_baseline[scenario_var].round(3).values,
         "Scénario":    prev_scenario[scenario_var].round(3).values,
         "Impact (Δ)":  impact.round(3).values,

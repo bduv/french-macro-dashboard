@@ -810,25 +810,27 @@ def compute_scenario(
     
     Retourne :
         DataFrame avec prévisions sous scénario de choc
+    
+    Applique un choc exogène sur les prévisions de base.
+    Correction : utilise .loc pour éviter les copies silencieuses.
     """
     scenario = base_forecast.copy()
-    
+
     if variable not in scenario.columns:
         return scenario
-    
-    # Choc dégressif : amplitude × ρ^t avec ρ = 0.7 (persistance AR)
+
     rho = 0.7
     n_periods = min(choc_persistance, len(scenario))
-    
+
     for t in range(n_periods):
         choc_t = choc_amplitude * (rho ** t)
-        scenario.iloc[t][variable] += choc_t
-        
-        # Propagation vers les autres variables
+        # Utilise .iloc avec assignation directe pour éviter SettingWithCopyWarning
+        scenario.iloc[t, scenario.columns.get_loc(variable)] += choc_t
+
         if propagation:
             for var_cible, multiplicateur in propagation.items():
                 if var_cible in scenario.columns:
-                    scenario.iloc[t][var_cible] += choc_t * multiplicateur
-    
+                    scenario.iloc[t, scenario.columns.get_loc(var_cible)] += choc_t * multiplicateur
+
     return scenario
     
